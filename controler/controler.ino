@@ -1,6 +1,3 @@
-//Créé le 18/08/2020
-
-
 //librairies
 #include <SPI.h>
 #include <nRF24L01.h>
@@ -23,15 +20,17 @@ Data_Package data ; //Création d'une variable a partir du pack ci-dessus
 
 
 void setup() {
+  
   Serial.begin(9600);
+
 
   //radio communication
   radio.begin();
   radio.openWritingPipe(address);
   radio.setAutoAck(false);
-  radio.setPALevel(RF24_PA_MAX);
-  radio.setDataRate(RF24_250KBPS);
+  radio.setPALevel(RF24_PA_MIN);
   radio.stopListening();
+
 
   //Données pré-définies pour les variables Moteur et ServoMoteur
   data.Emoteur = 0;
@@ -48,16 +47,9 @@ void loop () {
   data.Eservo = map(analogRead(A0), 0, 1023, 0, 255);
 
 
-  //envoyer toute la data a partir de la structure au recepteur
+  //envoyer toute la data au recepteur
   radio.write(&data, sizeof(Data_Package));
 
 
-  //test si l'arduino détecte les potentiommètre ou pas
-  Serial.print("Moteur: ");
-  Serial.print (data.Emoteur);
-  Serial.print ("  Servo: ");
-  Serial.println (data.Eservo);
-
-
-  delay(5);
+  delay(10);
 }
