@@ -28,10 +28,6 @@ unsigned long lastReceiveTime = 0;
 unsigned long currentTime = 0;
 
 
-byte motorValue;
-byte servoValue;
-
-
 void setup() {
   Serial.begin(9600);
 
@@ -84,7 +80,6 @@ void loop () {
 
   //Controle du servo
   Sservo.write(map(data.Eservo, 0, 255, 65, 115));
-  /*setAngle(data.Eservo) ; // utiliser la loop servo pour envoyer le bon signal correspondant*/
 
 
   //affichage des valeurs dans le moniteur série
