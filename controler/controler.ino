@@ -51,5 +51,12 @@ void loop () {
   radio.write(&data, sizeof(Data_Package));
 
 
+  //affichage des valeurs dans le moniteur série
+  Serial.print("Moteur: ");
+  Serial.print(data.Emoteur);
+  Serial.print("  Servo: ");
+  Serial.println(data.Eservo);
+
+
   delay(10);
 }

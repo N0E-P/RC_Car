@@ -10,6 +10,6 @@ void setup() {
 
 
 void loop() {
-  //int motorValue = map(analogRead(A0),0,1023,1490,674);
-  moteur.write(1550);
+  int motorValue = map(analogRead(A0),0,1023, 1515, 680);
+  moteur.write(motorValue);
 }

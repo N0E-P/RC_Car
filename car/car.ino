@@ -6,8 +6,8 @@
 
 
 //Sorties
-Servo Smoteur; //créer un object avec "servo" pour controler l'esc
-Servo Sservo; // sortie pour controle servo
+Servo moteur; //créer un object avec "servo" pour controler l'esc
+Servo servo; // sortie pour controle servo
 
 
 //radio
@@ -28,6 +28,14 @@ unsigned long lastReceiveTime = 0;
 unsigned long currentTime = 0;
 
 
+//declare the motors variables
+int motorValue = 0;
+int servoValue = 0;
+
+
+
+
+
 void setup() {
   Serial.begin(9600);
 
@@ -41,16 +49,12 @@ void setup() {
 
 
   //Attribuer au moteur et au servo des pins de sorties et leur valeurs min et max
-  Smoteur.attach(6, 1000, 1900);
-  Sservo.attach(5);
+  moteur.attach(6);
+  servo.attach(5);
 
-
-  // Set the data to normal values
-  data.Emoteur = 0;
-  data.Eservo = 127;
+  
+  delay(5000);
 }
-
-
 
 
 
@@ -75,17 +79,18 @@ void loop () {
 
 
   //Controle du moteur
-  Smoteur.write(map(data.Emoteur, 0, 255, 0, 180));
+  motorValue = map(data.Emoteur, 0, 255, 1515, 680);
+  moteur.write(motorValue);
 
 
   //Controle du servo
-  Sservo.write(map(data.Eservo, 0, 255, 65, 115));
+  servoValue = map(data.Eservo, 0, 255, 65, 115);
+  servo.write(servoValue);
 
 
   //affichage des valeurs dans le moniteur série
   Serial.print("Moteur: ");
-  Serial.print(data.Emoteur);
+  Serial.print(motorValue);
   Serial.print("  Servo: ");
-  Serial.println(data.Eservo);
-
+  Serial.println(servoValue);
 }
